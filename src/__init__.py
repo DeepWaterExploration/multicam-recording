@@ -88,7 +88,7 @@ def monitor():
     current_time = time.time()
 
     record_period = config.recording_length_seconds
-    record_interval_minutes = config.recording_interval_minutes / 2.0
+    record_interval_minutes = config.recording_interval_minutes
     width = config.resolution_width
     framerate = config.framerate
 
