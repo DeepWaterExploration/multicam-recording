@@ -10,6 +10,9 @@ import sys
 
 from .util import createDirectory, get_current_timestamp, sys_less_than_x_mb_left, load_multicam_config
 
+CURRENT_USER = os.getenv('USER')
+VIDEO_DIRECTORY = f'/home/{CURRENT_USER}/Videos/DeepWaterVideos/'
+
 def list_diff(listA, listB):
     # find the difference between lists
     diff = []
@@ -85,7 +88,7 @@ def monitor():
     current_time = time.time()
 
     record_period = config.recording_length_seconds
-    record_interval = config.recording_interval_minutes / 2.0
+    record_interval_minutes = config.recording_interval_minutes / 2.0
     width = config.resolution_width
     framerate = config.framerate
 
@@ -100,29 +103,30 @@ def monitor():
             stop_streams()
             exit()
 
-        # the record period is over
-        if is_recording and current_time - recording_start_time >= record_period:
-            logging.info(f'Record period is over, starting next recording in {record_interval} minutes')
+        current_time = time.time()
+        current_recording_length = current_time - recording_start_time
+        
+        # the recording period is over
+        if is_recording and current_recording_length >= record_period:
+            logging.info(f'Record period is over, starting next recording in {record_interval_minutes} minutes')
             stop_streams()
             recording_end_time = time.time()
             is_recording = False
         
         # the recording should start now
-        if not is_recording and current_time - recording_end_time >= record_interval * 60:
+        if not is_recording and current_recording_length >= record_interval_minutes * 60:
             logging.info(f'Recording period starting now, which will end in {record_period} seconds')
             start_streams()
             recording_start_time = time.time()
             recording_end_time = None
-            is_recording = True
+            is_recording = True 
 
         devices = get_devices(devices, width, framerate)
-
-        current_time = time.time()
         
         time.sleep(0.1) # do not overload bus
 
 def start_streams():
-    directory = '/home/' + os.getenv('USER') + '/dwevideos/' + get_current_timestamp()
+    directory = VIDEO_DIRECTORY + get_current_timestamp()
     createDirectory(directory)
     for stream in streams:
         stream.start(directory)
@@ -132,7 +136,7 @@ def stop_streams():
         stream.stop()
 
 def main():
-    createDirectory('~/dwevideos')
+    createDirectory(VIDEO_DIRECTORY)
 
     logging.basicConfig(filename='log.txt', stream=sys.stdout, filemode='a')
     logging.getLogger().setLevel(logging.INFO)
