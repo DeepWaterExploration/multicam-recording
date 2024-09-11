@@ -41,7 +41,7 @@ class StreamRunner:
         pipeline_str = self._construct_pipeline(self.device_path, f'{directory}/{self.device_info.bus_info}.avi', self.width, self.framerate)
         logging.info(pipeline_str)
         self._process = subprocess.Popen(
-            f'gst-launch-1.0 {pipeline_str}'.split(' '), stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+            f'gst-launch-1.0 {pipeline_str}'.split(' '), stdout=subprocess.DEVNULL, text=True)
 
     def _construct_pipeline(self, device_index: str, output_file_path: str, resolution_width: int = 1920, framerate: int = 30):
         return f"v4l2src device={device_index} ! image/jpeg, width={resolution_width},framerate={framerate}/1 ! queue ! avimux ! filesink location={output_file_path}"
