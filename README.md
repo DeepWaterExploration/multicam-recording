@@ -51,8 +51,8 @@ After=network.target
 [Service]
 User=ubuntu
 Group=www-data
-WorkingDirectory=path_to_multicam_record/MultiCam-Record
-ExecStart=/usr/bin/python3 path_to_multicam_record/MultiCam-Record/run.py
+WorkingDirectory=path_to_multicam_record/MultiCam-Record/src
+ExecStart=/usr/bin/python3 path_to_multicam_record/MultiCam-Record/src/run.py
 
 [Install]
 WantedBy=multi-user.target
