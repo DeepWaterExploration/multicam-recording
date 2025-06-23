@@ -5,7 +5,6 @@ from multiprocessing import Process
 import time
 import shlex
 import threading
-import eventemitter as events
 from .list_devices import DeviceInfo
 from datetime import datetime
 
