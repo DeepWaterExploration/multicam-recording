@@ -57,3 +57,19 @@ ExecStart=/usr/bin/python3 path_to_multicam_record/MultiCam-Record/src/run.py
 [Install]
 WantedBy=multi-user.target
 ```
+
+## Installing to NVME Drive
+1. run ```sudo raspi-config```,
+then navigate to Advanced Options > Boot > Boot Order,
+highlight 'NVMe/USB Boot' and press enter, and
+follow the prompts
+2. clone contents of SD card to NVME drive
+```bash
+# Install rpi-clone.
+git clone https://github.com/geerlingguy/rpi-clone.git
+cd rpi-clone
+sudo cp rpi-clone rpi-clone-setup /usr/local/sbin
+
+# Clone to the NVMe drive (usually nvme0n1, but check with `lsblk`).
+sudo rpi-clone nvme0n1
+```
