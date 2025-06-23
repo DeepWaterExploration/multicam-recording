@@ -25,9 +25,14 @@ sudo apt upgrade
 sudo apt install python3 python3-pip
 ```
 
+Install Repository
+```bash
+git clone https://github.com/DeepWaterExploration/MultiCam-Record.git/
+cd MultiCam-Record
+```
+
 Install Python Packages
 ```bash
-cd backend/
 pip install -r requirements.txt
 ```
 
