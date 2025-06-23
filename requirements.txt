@@ -1,3 +1,2 @@
-event-emitter==0.3.0
 eventemitter==0.2.0
 natsort==8.4.0
