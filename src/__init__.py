@@ -50,7 +50,6 @@ def reboot():
 
 def get_devices(old_devices: List[DeviceInfo], width: int, framerate: int):
     devices_info = list_devices()
-
     new_devices: List[DeviceInfo] = list_diff(devices_info, old_devices)
     removed_devices: List[DeviceInfo] = list_diff(old_devices, devices_info)
 
@@ -88,7 +87,7 @@ def monitor():
     current_time = time.time()
 
     record_period = config.recording_length_seconds
-    record_interval_minutes = config.recording_interval_minutes
+    record_interval_seconds = config.recording_interval_seconds
     width = config.resolution_width
     framerate = config.framerate
 
@@ -108,13 +107,13 @@ def monitor():
         
         # the recording period is over
         if is_recording and current_recording_length >= record_period:
-            logging.info(f'Record period is over, starting next recording in {record_interval_minutes} minutes')
+            logging.info(f'Record period is over, starting next recording in {record_interval_seconds} seconds')
             stop_streams()
             recording_end_time = time.time()
             is_recording = False
         
         # the recording should start now
-        if not is_recording and current_recording_length >= record_interval_minutes * 60:
+        if not is_recording and current_recording_length >= record_interval_seconds:
             logging.info(f'Recording period starting now, which will end in {record_period} seconds')
             start_streams()
             recording_start_time = time.time()
