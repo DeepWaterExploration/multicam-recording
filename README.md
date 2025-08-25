@@ -45,14 +45,13 @@ python run.py # dev mode
 
 ```bash
 [Unit]
-Description=MultiCam Service
-After=network.target
+Description=MultiCam Record
 
 [Service]
-User=ubuntu
-Group=www-data
-WorkingDirectory=/home/ubuntu/Github/MultiCam-Record
-ExecStart=/usr/bin/python3 /home/ubuntu/Github/MultiCam-Record/run.py
+Type=simple
+TimeoutStartSec=0
+Restart=always
+ExecStart=/home/dwe/MultiCam-Record-main/run.sh
 
 [Install]
 WantedBy=multi-user.target
