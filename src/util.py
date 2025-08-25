@@ -9,7 +9,7 @@ import logging
 class MulticamSettings:
     # Default settings
     recording_length_seconds: int = 30
-    recording_interval_minutes: float = 20
+    recording_interval_seconds: int = 60
     framerate: int = 30
     resolution_width: int = 1920
 
@@ -36,7 +36,7 @@ def example():
         logging.info(f"Resolution: {multicam_settings.resolution_width}")
         logging.info(f"Framerate: {multicam_settings.framerate}")
         logging.info(f"Recording length (seconds): {multicam_settings.recording_length_seconds}")
-        logging.info(f"Recording interval (minutes): {multicam_settings.recording_interval_minutes}")
+        logging.info(f"Recording interval (seconds): {multicam_settings.recording_interval_seconds}")
     else:
         logging.info("Failed to load settings.")
 

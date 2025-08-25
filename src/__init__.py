@@ -11,6 +11,8 @@ import sys
 from .util import createDirectory, get_current_timestamp, sys_less_than_x_mb_left, load_multicam_config
 
 CURRENT_USER = os.getenv('USER')
+if CURRENT_USER == None:
+    CURRENT_USER = 'dwe'
 VIDEO_DIRECTORY = f'/home/{CURRENT_USER}/Videos/DeepWaterVideos/'
 
 def list_diff(listA, listB):
@@ -88,7 +90,7 @@ def monitor():
     current_time = time.time()
 
     record_period = config.recording_length_seconds
-    record_interval_minutes = config.recording_interval_minutes
+    record_interval_seconds = config.recording_interval_seconds
     width = config.resolution_width
     framerate = config.framerate
 
@@ -108,13 +110,13 @@ def monitor():
         
         # the recording period is over
         if is_recording and current_recording_length >= record_period:
-            logging.info(f'Record period is over, starting next recording in {record_interval_minutes} minutes')
+            logging.info(f'Record period is over, starting next recording in {record_interval_seconds} seconds')
             stop_streams()
             recording_end_time = time.time()
             is_recording = False
         
         # the recording should start now
-        if not is_recording and current_recording_length >= record_interval_minutes * 60:
+        if not is_recording and current_recording_length >= record_interval_seconds:
             logging.info(f'Recording period starting now, which will end in {record_period} seconds')
             start_streams()
             recording_start_time = time.time()
