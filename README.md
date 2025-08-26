@@ -22,13 +22,23 @@ Install Python
 ```bash
 sudo apt update
 sudo apt upgrade
-sudo apt install python3 python3-pip
+sudo apt install python3
 ```
 
 Install Repository
 ```bash
 git clone https://github.com/DeepWaterExploration/MultiCam-Record.git/
 cd MultiCam-Record
+```
+
+Create Python Virtual Environment
+```bash
+python -m venv .env
+```
+
+Activate Python Virtual Environment
+```bash
+source .env/bin/activate
 ```
 
 Install Python Packages
@@ -38,7 +48,7 @@ pip install -r requirements.txt
 
 ## Development
 
-### Running Backend
+### Running Program
 
 ```bash
 python run.py # dev mode
@@ -57,24 +67,8 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=path_to_multicam_record/MultiCam-Record/src
-ExecStart=/usr/bin/python3 path_to_multicam_record/MultiCam-Record/src/run.py
+ExecStart=path_to_multicam_record/MultiCam-Record/.env/bin/python3 path_to_multicam_record/MultiCam-Record/src/run.py
 
 [Install]
 WantedBy=multi-user.target
-```
-
-## Installing to NVME Drive
-1. run ```sudo raspi-config```,
-then navigate to Advanced Options > Boot > Boot Order,
-highlight 'NVMe/USB Boot' and press enter, and
-follow the prompts
-2. clone contents of SD card to NVME drive
-```bash
-# Install rpi-clone.
-git clone https://github.com/geerlingguy/rpi-clone.git
-cd rpi-clone
-sudo cp rpi-clone rpi-clone-setup /usr/local/sbin
-
-# Clone to the NVMe drive (usually nvme0n1, but check with `lsblk`).
-sudo rpi-clone nvme0n1
 ```
