@@ -1,6 +1,6 @@
 {
     "resolution_width": 1920,
     "framerate": 30,
-    "recording_length_seconds": 10,
+    "recording_length_seconds": 60,
     "recording_interval_seconds": 30
 }
