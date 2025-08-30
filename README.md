@@ -22,18 +22,33 @@ Install Python
 ```bash
 sudo apt update
 sudo apt upgrade
-sudo apt install python3 python3-pip
+sudo apt install python3
+```
+
+Install Repository
+```bash
+git clone https://github.com/DeepWaterExploration/MultiCam-Record.git/
+cd MultiCam-Record
+```
+
+Create Python Virtual Environment
+```bash
+python -m venv .env
+```
+
+Activate Python Virtual Environment
+```bash
+source .env/bin/activate
 ```
 
 Install Python Packages
 ```bash
-cd backend/
 pip install -r requirements.txt
 ```
 
 ## Development
 
-### Running Backend
+### Running Program
 
 ```bash
 python run.py # dev mode
@@ -52,7 +67,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=path_to_multicam_record/MultiCam-Record/src
-ExecStart=/usr/bin/python3 path_to_multicam_record/MultiCam-Record/src/run.py
+ExecStart=path_to_multicam_record/MultiCam-Record/.env/bin/python3 path_to_multicam_record/MultiCam-Record/src/run.py
 
 [Install]
 WantedBy=multi-user.target

@@ -1,0 +1,2 @@
+eventemitter==0.2.0
+natsort==8.4.0

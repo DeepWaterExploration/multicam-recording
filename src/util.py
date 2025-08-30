@@ -9,7 +9,7 @@ import logging
 class MulticamSettings:
     # Default settings
     recording_length_seconds: int = 30
-    recording_interval_minutes: float = 20
+    recording_interval_seconds: float = 20
     framerate: int = 30
     resolution_width: int = 1920
 
