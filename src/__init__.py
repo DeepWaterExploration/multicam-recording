@@ -113,7 +113,7 @@ def monitor():
             is_recording = False
         
         # the recording should start now
-        if not is_recording and current_recording_length >= record_interval_seconds:
+        if not is_recording and (current_time - recording_end_time) >= record_interval_seconds:
             logging.info(f'Recording period starting now, which will end in {record_period} seconds')
             start_streams()
             recording_start_time = time.time()
